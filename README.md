@@ -1,4 +1,4 @@
-# Delphi_2010
+# Delphi 2010
 Tutorial Delphi 2010 con componentes ODAC y DevExpress 19.2.5
 ### Introducción a Delphi 2010
 
