@@ -929,10 +929,10 @@ Puedes arrastrar y soltar estos componentes desde la paleta de herramientas de D
 
 #### Paso 4: Vincular Datos a la Interfaz de Usuario
 
-Puedes mostrar los datos en tu aplicación utilizando componentes de visualización de datos, como `TDBGrid`, `TDBEdit`, etc. Para hacer esto:
+Puedes mostrar los datos en tu aplicación utilizando componentes de visualización de datos, como `TDBGridEh`, `TDBEdit`, etc. Para hacer esto:
 
 1. Utiliza un componente `TDataSource` y configura su propiedad `DataSet` para que apunte a tu `TOraQuery` o `TOraTable`.
-2. Vincula tus componentes de visualización de datos (`TDBGrid`, `TDBEdit`, etc.) al `TDataSource` estableciendo su propiedad `DataSource`.
+2. Vincula tus componentes de visualización de datos (`TDBGridEh`, `TDBEdit`, etc.) al `TDataSource` estableciendo su propiedad `DataSource`.
 
 #### Paso 5: Compilar y Ejecutar
 
@@ -1036,7 +1036,7 @@ Este proceso te permite ejecutar cualquier tipo de consulta SQL en una base de d
 
 Es importante recordar que la utilización eficaz de estos eventos puede significativamente mejorar la interactividad, el rendimiento, y la robustez de tus aplicaciones Delphi que interactúan con bases de datos Oracle. Sin embargo, la disponibilidad exacta y el comportamiento de estos eventos pueden depender de la versión específica de ODAC que estés utilizando, por lo que es recomendable revisar la documentación oficial de Devart para detalles precisos.
 
-- **Visualización y edición de datos**: Para visualizar y editar datos en una aplicación Delphi, los componentes como `TDBGridEh` son herramientas poderosas que ofrecen funcionalidades extendidas sobre el estándar `TDBGrid`. `TDBGridEh` es parte de una suite de componentes de EhLib, que proporciona capacidades avanzadas para la interacción con datos, como la edición in-line, filtrado, agrupamiento, y más. A continuación, te muestro cómo puedes usar `TDBGridEh` para mostrar y editar datos en tu aplicación.
+- **Visualización y edición de datos**: Para visualizar y editar datos en una aplicación Delphi, los componentes como `TDBGridEh` son herramientas poderosas que ofrecen funcionalidades extendidas sobre el estándar `TDBGridEh`. `TDBGridEh` es parte de una suite de componentes de EhLib, que proporciona capacidades avanzadas para la interacción con datos, como la edición in-line, filtrado, agrupamiento, y más. A continuación, te muestro cómo puedes usar `TDBGridEh` para mostrar y editar datos en tu aplicación.
 
 ### Paso 1: Configurar los componentes de acceso a datos
 
@@ -1310,16 +1310,31 @@ finalization
 
 La programación multihilo es avanzada y poderosa, pero también puede ser compleja. Comprender estos fundamentos te ayudará a comenzar a explorar los hilos en tus aplicaciones Delphi, permitiéndote realizar tareas en paralelo y mejorar la eficiencia y la experiencia del usuario.
 
+Esta guía ofrece una base sobre cómo construir una aplicación CRUD básica en Delphi. A medida que avances, podrás añadir más complejidad y características según sea necesario.
+
 ### Proyecto final 1
 
 - **Aplicación CRUD básica**: Crear una aplicación CRUD (Crear, Leer, Actualizar, Eliminar) es un excelente proyecto final para consolidar tus habilidades en Delphi. Este tipo de aplicación te permite interactuar con una base de datos para gestionar sus registros. A continuación, encontrarás una guía paso a paso para crear una aplicación CRUD básica utilizando Delphi y una base de datos (por ejemplo, SQLite, debido a su simplicidad para ejemplos pequeños).
 
 #### Paso 1: Preparar el entorno
 
-**Configurar una base de datos**: Para el ejemplo, puedes usar SQLite. Crea una base de datos simple llamada `MiBaseDeDatos.db` y una tabla llamada `Personas` con las siguientes columnas:
-   - `Id` (INTEGER PRIMARY KEY)
-   - `Nombre` (TEXT)
-   - `Edad` (INTEGER)
+**Conexión a base de datos Oracle**: Abrimos SqlNavigator y pulsamos en nueva conexión, a continuación elegimos el tipo de conexión.
+  1. **TNS**:
+    - `Database` NCLIENTES
+    - `Username` AT_TIER1
+    - `Password` fuego
+
+  2. **Direct**:
+    - `Host` vm-orasoft.tier1.es ó 172.16.100.16
+    - `Port` 1521
+    - `Service Name / SID` TIER1
+    - `Username` AT_TIER1
+    - `Password` fuego
+
+**Configurar una base de datos**: Crea una tabla llamada `XXXX_PERSONAS_DELPHI_TBL` en la base de datos de desarrollo de Tier1 (`XXXX` se sustituye por las iniales de cada desarrollador, proporcionadas por RRHH el dia de la incorporación, ejemplo `JALC_PERSONAS_DELPHI_TBL`) con las siguientes columnas:
+   - `ID` (INTEGER PRIMARY KEY)
+   - `NOMBRE` (VARCHAR2 100)
+   - `EDAD` (INTEGER)
 
 #### Paso 2: Crear el proyecto
 
@@ -1329,21 +1344,28 @@ La programación multihilo es avanzada y poderosa, pero también puede ser compl
 ### Paso 3: Diseñar la interfaz de usuario
 
 1. Abre el formulario principal y añade los siguientes componentes desde la paleta de herramientas:
-   - `TDBGrid`: Para mostrar los registros de la base de datos.
+   - `TDBGridEh`: Para mostrar los registros de la base de datos.
    - `TDataSource`: Para conectar los componentes visuales con los conjuntos de datos.
-   - `TFDConnection`: Para la conexión a la base de datos.
-   - `TFDQuery`: Para ejecutar consultas SQL.
+   - `TOraSession`: Para la conexión a la base de datos.
+      ***Configurarción***:
+      - `Username` AT_TIER1
+      - `Password` fuego
+      - `Server` NCLIENTES
+      - `Home` Default      
+   - `TOraQuery`: Para ejecutar consultas SQL.
    - Cuatro `TButton`: Para las operaciones CRUD.
-   - `TEdit`: Para ingresar el nombre.
-   - `TSpinEdit`: Para ingresar la edad.
+   - `TDBEditEh`: Para ingresar el nombre.
+   - `TDBEditEh`: Para ingresar la edad.
+   - `TcxDataEdit`: Para ingresar la fecha
 
-2. Ajusta las propiedades de los componentes para vincularlos adecuadamente. Por ejemplo, asigna `DataSource` del `TDBGrid` al `TDataSource`, y el `DataSet` del `TDataSource` al `TFDQuery`. Configura la conexión del `TFDConnection` a tu base de datos SQLite.
+2. Ajusta las propiedades de los componentes para vincularlos adecuadamente. Por ejemplo, asigna `DataSource` del `TDBGridEh` al `TDataSource`, y el `DataSet` del `TDataSource` al `TOraQuery`. Configura la conexión del `TOraSession` a tu base de datos Oracle.
 
 #### Paso 4: Implementar la lógica CRUD
+0. **NOTA**: Para el ID se crea un contador.
 
 1. **Crear (C)**:
    - Asigna un evento `OnClick` al botón Crear.
-   - En el evento, escribe código para insertar un nuevo registro usando los valores de `TEdit` y `TSpinEdit`. Ejemplo:
+   - En el evento, escribe código para insertar un nuevo registro usando los valores de `TDBEditEh` y `TDBEditEh`. Ejemplo:
      ```delphi
      FQuery.SQL.Text := 'INSERT INTO Personas (Nombre, Edad) VALUES (:Nombre, :Edad)';
      FQuery.ParamByName('Nombre').AsString := EditNombre.Text;
@@ -1352,7 +1374,7 @@ La programación multihilo es avanzada y poderosa, pero también puede ser compl
      ```
 
 2. **Leer (R)**:
-   - Al iniciar la aplicación, o después de cada operación CRUD, ejecuta una consulta para refrescar el `TDBGrid` y mostrar los registros actuales.
+   - Al iniciar la aplicación, o después de cada operación CRUD, ejecuta una consulta para refrescar el `TDBGridEh` y mostrar los registros actuales. Ejemplo:
      ```delphi
      FQuery.SQL.Text := 'SELECT * FROM Personas';
      FQuery.Open;
@@ -1360,11 +1382,11 @@ La programación multihilo es avanzada y poderosa, pero también puede ser compl
 
 3. **Actualizar (U)**:
    - Asigna un evento `OnClick` al botón Actualizar.
-   - Implementa la lógica para actualizar el registro seleccionado en el `TDBGrid`, similar al proceso de creación pero con una consulta `UPDATE`.
+   - Implementa la lógica para actualizar el registro seleccionado en el `TDBGridEh`, similar al proceso de creación pero con una consulta `UPDATE`.
 
 4. **Eliminar (D)**:
    - Asigna un evento `OnClick` al botón Eliminar.
-   - Escribe código para eliminar el registro seleccionado basándote en el `Id`.
+   - Escribe código para eliminar el registro seleccionado basándote en el `Id`. Ejemplo:
      ```delphi
      FQuery.SQL.Text := 'DELETE FROM Personas WHERE Id = :Id';
      FQuery.ParamByName('Id').AsInteger := IdDelRegistroSeleccionado;
@@ -1381,69 +1403,7 @@ La programación multihilo es avanzada y poderosa, pero también puede ser compl
 - Asegúrate de manejar posibles errores en las operaciones con la base de datos, como entradas inválidas o problemas de conexión.
 - Mejora la interfaz de usuario para hacerla más amigable e intuitiva.
 - Considera implementar funcionalidades adicionales, como búsqueda o filtrado de registros.
-
-Esta guía ofrece una base sobre cómo construir una aplicación CRUD básica en Delphi. A medida que avances, podrás añadir más complejidad y características según sea necesario.
-
-### Proyecto final 2
-Crear una aplicación CRUD básica en Delphi utilizando ODAC para la conexión a la base de datos Oracle, eventos de ToraQuery para la interacción con la base de datos, y DevExpress 19.2.5 para la interfaz gráfica, es un proyecto integral que te permitirá explorar el potencial de estas herramientas. A continuación, se detalla una guía paso a paso.
-
-### Paso 1: Configuración del Entorno
-1. Utiliza la base de datos creada en el proyecto final 1
-2. Abre Delphi y crea un nuevo proyecto de Aplicación VCL.
-
-### Paso 2: Diseñar la Interfaz de Usuario
-1. Utiliza los componentes de DevExpress para diseñar la interfaz:
-   - Arrastra un `TcxGrid` de DevExpress al formulario para mostrar los datos.
-   - Añade controles `TcxTextEdit` para la entrada de datos para crear y actualizar registros.
-   - Coloca botones `TcxButton` para las operaciones CRUD: Añadir, Leer (Refrescar), Actualizar, y Eliminar.
-
-### Paso 3: Configurar la Conexión a la Base de Datos
-1. Coloca un componente `TOraSession` de ODAC en tu formulario y configura las propiedades de conexión (Username, Password, Server).
-2. Usa `TOraQuery` para interactuar con la base de datos. Necesitarás múltiples instancias para las distintas operaciones CRUD.
-
-### Paso 4: Implementar la Funcionalidad CRUD
-#### Crear (Insertar)
-1. En el evento `OnClick` del botón Añadir, recoge los valores de los `TcxTextEdit` y usa `TOraQuery` para insertar un nuevo registro.
-   ```delphi
-   OraQuery.SQL.Text := 'INSERT INTO tabla (campo1, campo2) VALUES (:valor1, :valor2)';
-   OraQuery.ParamByName('valor1').AsString := cxTextEdit1.Text;
-   OraQuery.ParamByName('valor2').AsString := cxTextEdit2.Text;
-   OraQuery.Execute;
-   ```
-
-#### Leer (Cargar Datos)
-1. Para cargar o refrescar los datos, utiliza otro `TOraQuery` configurado para seleccionar datos de la tabla.
-   ```delphi
-   OraQuery.SQL.Text := 'SELECT * FROM tabla';
-   OraQuery.Open;
-   cxGrid.DataController.DataSource := DataSource; // Asegúrate de que el DataSource esté vinculado a OraQuery
-   ```
-
-#### Actualizar
-1. Usa eventos de selección en `TcxGrid` para cargar los datos seleccionados en los `TcxTextEdit`.
-2. En el evento `OnClick` del botón Actualizar, ejecuta un `UPDATE` con `TOraQuery` usando los datos de los `TcxTextEdit`.
-
-#### Eliminar
-1. Con el registro seleccionado, en el evento `OnClick` del botón Eliminar, utiliza `TOraQuery` para eliminar el registro.
-   ```delphi
-   OraQuery.SQL.Text := 'DELETE FROM tabla WHERE id = :id';
-   OraQuery.ParamByName('id').AsInteger := idSeleccionado; // Asegúrate de obtener el ID del registro seleccionado.
-   OraQuery.Execute;
-   ```
-
-### Paso 5: Manejo de Eventos de ToraQuery
-- Utiliza eventos como `AfterOpen`, `AfterPost`, `AfterDelete` de `TOraQuery` para actualizar la interfaz o manejar lógica adicional después de cada operación.
-- Por ejemplo, después de insertar, actualizar o eliminar, puedes querer refrescar el Grid:
-  ```delphi
-  procedure TForm1.OraQueryAfterPost(DataSet: TDataSet);
-  begin
-    OraQuery.Refresh;
-  end;
-  ```
-
-### Paso 6: Compilación y Pruebas
-- Compila y ejecuta la aplicación.
-- Prueba todas las operaciones CRUD para asegurarte de que funcionan según lo esperado.
+- Probar eventos de consultas como afterPost, BeforePost, etc.
 
 Este proyecto final integra componentes visuales de alta calidad con la potente conectividad a bases de datos de Oracle, todo dentro del entorno de desarrollo de Delphi. Te proporcionará una excelente base sobre la cual puedes construir aplicaciones más complejas y funcionales.
 
