@@ -1397,6 +1397,7 @@ Esta guía ofrece una base sobre cómo construir una aplicación CRUD básica en
 
 1. Ejecuta la aplicación presionando F9.
 2. Prueba cada una de las funcionalidades CRUD para asegurarte de que la aplicación puede crear, leer, actualizar y eliminar registros en la base de datos.
+3. Importante, al finalizar el proyecto, por favor borrard la tabla creada.
 
 #### Consejos adicionales
 
